@@ -1,7 +1,7 @@
 # Portfolio
 ## Project Overview
 
-This is a fully responsive, single-page portfolio website designed with a bold neon/dark aesthetic. It includes the following sections:
+This is a fully responsive, single-page portfolio website designed with a bold neon/dark aesthetic. It is built using only **HTML5 and CSS3**. It includes the following sections:
 
 - **Home** — Hero section with name, tagline, photo, and call-to-action buttons
 - **Education** — Timeline of academic qualifications
@@ -17,8 +17,9 @@ This is a fully responsive, single-page portfolio website designed with a bold n
 | Technology | Purpose |
 |------------|---------|
 | HTML5 | Page structure and semantic markup |
-| CSS3 | Styling, animations, flexbox, grid, responsive design |
-| JavaScript (Vanilla) | Smooth scroll, scroll reveal animations, mobile nav |
+| CSS3 | Styling, animations, flexbox, grid, responsive design, hover effects |
+
+> No JavaScript is used. All animations, transitions, hover effects, scroll behaviour, and the mobile navigation menu are implemented entirely with CSS.
 
 ---
 
@@ -26,7 +27,7 @@ This is a fully responsive, single-page portfolio website designed with a bold n
 
 ```
 portfolio/
-├── index.html      # Main portfolio page (all HTML, CSS, JS in one file)
+├── index.html      # Main portfolio page (all HTML and CSS in one file)
 ├── rohith.jpg      # Profile photo
 └── README.md       # Project documentation
 ```
@@ -78,11 +79,11 @@ https://rohithchowdary77.github.io
 ## Features
 
 - Fully **responsive** — works on desktop, tablet, and mobile
-- **Smooth scroll navigation** with active link highlighting
-- **Scroll reveal animations** — sections animate in as you scroll
-- **Mobile hamburger menu** — dropdown nav for small screens
-- **Neon glow aesthetic** with animated background blobs
-- **Photo card** with glowing corner bracket effect on hover
+- **Smooth scroll navigation** — powered by `scroll-behavior: smooth` in CSS
+- **Scroll reveal animations** — CSS `@keyframes` with `animation-delay`
+- **Mobile hamburger menu** — CSS `:target` pseudo-class, no JavaScript
+- **Neon glow aesthetic** with animated background blobs using CSS `@keyframes`
+- **Photo card** with glowing corner bracket effect on hover using CSS `:hover`
 - **Project cards** with GitHub repo links
 - **Certification cards** with issuer and badge tags
 - **Contact grid** — all links open directly (email, phone, social)
