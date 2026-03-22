@@ -17,7 +17,6 @@
     html{scroll-behavior:smooth}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-
     /* ── NOISE ── */
     body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:.3}
 
@@ -29,25 +28,28 @@
     @keyframes blobFloat{from{transform:translate(0,0) scale(1)}to{transform:translate(28px,38px) scale(1.07)}}
 
     /* ── NAV ── */
-    nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:rgba(5,5,16,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:fixed}
+    nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:rgba(5,5,16,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
     .nav-logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:3px;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .nav-links{display:flex;gap:1.8rem;list-style:none}
     .nav-links a{text-decoration:none;color:var(--muted);font-size:.78rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;transition:color .3s;position:relative}
     .nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--neon-blue);transition:width .3s}
-    .nav-links a:hover,.nav-links a.active{color:var(--neon-blue)}
-    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-    .hamburger{display:none;flex-direction:column;gap:5px;padding:4px;cursor:pointer}
+    .nav-links a:hover{color:var(--neon-blue)}
+    .nav-links a:hover::after{width:100%}
+
+    /* ── CSS-ONLY HAMBURGER using checkbox hack ── */
+    .nav-toggle{display:none}
+    .hamburger{display:none;flex-direction:column;gap:5px;padding:4px;cursor:pointer;z-index:600;position:relative}
     .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
-    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .hamburger.open span:nth-child(2){opacity:0}
-    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    /* animate hamburger when checkbox checked */
+    .nav-toggle:checked ~ nav .hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .nav-toggle:checked ~ nav .hamburger span:nth-child(2){opacity:0}
+    .nav-toggle:checked ~ nav .hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
     /* ── HERO ── */
     #hero{min-height:100vh;display:flex;align-items:center;padding:6rem 5% 4rem;position:relative;overflow:hidden}
     .hero-inner{display:flex;align-items:center;justify-content:space-between;width:100%;gap:4rem;position:relative;z-index:2}
     .hero-content{flex:1;min-width:0}
 
-    /* NAME — Syne bold, matching screenshot style */
     .hero-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--neon-green);margin-bottom:1.4rem;padding:.38rem 1rem;border:1px solid rgba(0,255,136,.3);border-radius:100px;background:rgba(0,255,136,.05);animation:fadeUp .9s ease .1s both}
     .dot{width:6px;height:6px;border-radius:50%;background:var(--neon-green);animation:pulse 1.6s ease infinite}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
@@ -67,37 +69,38 @@
     /* ── PHOTO ── */
     .hero-photo{flex-shrink:0;animation:fadeUp .9s ease .55s both}
     .photo-wrap{position:relative;width:280px}
-
-    /* Glowing corner brackets effect */
     .photo-wrap::before,.photo-wrap::after{content:'';position:absolute;width:40px;height:40px;z-index:2;pointer-events:none;transition:all .4s}
     .photo-wrap::before{top:-6px;left:-6px;border-top:2px solid var(--neon-blue);border-left:2px solid var(--neon-blue);border-radius:4px 0 0 0}
     .photo-wrap::after{bottom:-6px;right:-6px;border-bottom:2px solid var(--neon-purple);border-right:2px solid var(--neon-purple);border-radius:0 0 4px 0}
     .photo-corner-tr{position:absolute;top:-6px;right:-6px;width:40px;height:40px;border-top:2px solid var(--neon-purple);border-right:2px solid var(--neon-purple);border-radius:0 4px 0 0;z-index:2}
     .photo-corner-bl{position:absolute;bottom:-6px;left:-6px;width:40px;height:40px;border-bottom:2px solid var(--neon-blue);border-left:2px solid var(--neon-blue);border-radius:0 0 0 4px;z-index:2}
-
-    /* Neon glow on hover */
     .photo-wrap:hover .photo-img-box{box-shadow:0 0 0 1px rgba(0,240,255,.25),0 0 40px rgba(0,240,255,.2),0 0 80px rgba(191,0,255,.1)}
     .photo-wrap:hover::before,.photo-wrap:hover .photo-corner-tr{border-color:var(--neon-blue);filter:drop-shadow(0 0 6px var(--neon-blue))}
     .photo-wrap:hover::after,.photo-wrap:hover .photo-corner-bl{border-color:var(--neon-purple);filter:drop-shadow(0 0 6px var(--neon-purple))}
-
     .photo-img-box{border-radius:16px;overflow:hidden;line-height:0;border:1px solid rgba(255,255,255,.07);transition:box-shadow .4s;box-shadow:0 0 0 1px rgba(255,255,255,.06),0 20px 60px rgba(0,0,0,.5)}
     .photo-img-box img{width:100%;height:380px;object-fit:cover;object-position:top center;display:block;filter:contrast(1.05) brightness(0.97);transition:transform .5s ease}
     .photo-wrap:hover .photo-img-box img{transform:scale(1.04)}
-
     .photo-caption{margin-top:.8rem;padding:.75rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;backdrop-filter:blur(8px)}
     .photo-caption-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:var(--text)}
     .photo-caption-sub{font-size:.72rem;color:var(--neon-blue);margin-top:.12rem}
 
     /* ── SHARED SECTION ── */
     section{position:relative;z-index:2;padding:7rem 5%;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-    /* Hero overrides flex-direction from section */
     #hero{display:flex;flex-direction:row;justify-content:unset;align-items:center}
-    /* Cert and skills sections: align content to top-center area, not dead-center */
     #skills,#certifications{justify-content:flex-start;padding-top:8rem}
     .section-label{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--neon-blue);margin-bottom:.7rem;display:flex;align-items:center;gap:.75rem}
     .section-label::after{content:'';flex:1;max-width:55px;height:1px;background:var(--neon-blue);opacity:.4}
     .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,4vw,2.9rem);font-weight:800;letter-spacing:-1px;margin-bottom:.85rem;color:var(--text)}
     .section-sub{color:var(--muted);font-size:1rem;max-width:500px;line-height:1.72;margin-bottom:3.2rem}
+
+    /* ── CSS SCROLL REVEAL (no JS) ── */
+    @keyframes revealUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{animation:revealUp .7s ease both}
+    .reveal:nth-child(1){animation-delay:.05s}
+    .reveal:nth-child(2){animation-delay:.12s}
+    .reveal:nth-child(3){animation-delay:.19s}
+    .reveal:nth-child(4){animation-delay:.26s}
+    .reveal:nth-child(5){animation-delay:.33s}
 
     /* ── EDUCATION ── */
     #education{background:var(--bg2)}
@@ -153,8 +156,23 @@
     .gh-link:hover{border-color:var(--neon-blue);color:var(--neon-blue);background:rgba(0,240,255,.08)}
     .gh-svg{width:16px;height:16px;fill:currentColor}
 
+    /* ── CERTIFICATIONS ── */
+    #certifications{background:var(--bg)}
+    .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+    .cert-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;transition:border-color .3s,transform .2s,box-shadow .3s;position:relative;overflow:hidden}
+    .cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad1);opacity:.6;transition:opacity .3s}
+    .cert-card:hover{border-color:rgba(0,240,255,.3);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,240,255,.09)}
+    .cert-card:hover::before{opacity:1}
+    .cert-icon{font-size:1.8rem;margin-bottom:.75rem;filter:drop-shadow(0 0 8px rgba(0,240,255,.4))}
+    .cert-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.35rem;line-height:1.3}
+    .cert-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .cert-issuer{font-size:.78rem;color:var(--neon-blue);font-weight:600}
+    .cert-sep{color:var(--border);font-size:.75rem}
+    .cert-year{font-size:.75rem;color:var(--muted)}
+    .cert-badge{display:inline-flex;margin-top:.6rem;padding:.18rem .6rem;border-radius:100px;font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,240,255,.08);color:var(--neon-blue);border:1px solid rgba(0,240,255,.2)}
+
     /* ── CONTACT ── */
-    #contact{background:var(--bg)}
+    #contact{background:var(--bg2)}
     .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;width:100%}
     .contact-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:1.6rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--text);transition:all .3s;text-align:center}
     .contact-card:hover{border-color:var(--neon-blue);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,240,255,.1)}
@@ -176,23 +194,6 @@
     .footer-socials a:hover{border-color:var(--neon-blue);color:var(--neon-blue)}
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-    .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-
-    /* ── CERTIFICATIONS ── */
-    #certifications{background:var(--bg)}
-    .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
-    .cert-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;transition:border-color .3s,transform .2s,box-shadow .3s;position:relative;overflow:hidden}
-    .cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad1);opacity:.6;transition:opacity .3s}
-    .cert-card:hover{border-color:rgba(0,240,255,.3);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,240,255,.09)}
-    .cert-card:hover::before{opacity:1}
-    .cert-icon{font-size:1.8rem;margin-bottom:.75rem;filter:drop-shadow(0 0 8px rgba(0,240,255,.4))}
-    .cert-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.35rem;line-height:1.3}
-    .cert-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-    .cert-issuer{font-size:.78rem;color:var(--neon-blue);font-weight:600}
-    .cert-sep{color:var(--border);font-size:.75rem}
-    .cert-year{font-size:.75rem;color:var(--muted)}
-    .cert-badge{display:inline-flex;margin-top:.6rem;padding:.18rem .6rem;border-radius:100px;font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,240,255,.08);color:var(--neon-blue);border:1px solid rgba(0,240,255,.2)}
 
     /* ── RESPONSIVE ── */
     @media(max-width:1024px){
@@ -211,8 +212,8 @@
       .projects-grid{grid-template-columns:1fr;max-width:480px}
       .contact-grid{grid-template-columns:repeat(2,1fr)}
       .cert-grid{grid-template-columns:repeat(2,1fr)}
-      /* Mobile nav — dropdown from top, not full-screen overlay */
       .hamburger{display:flex}
+      /* CSS-only mobile nav using :target */
       .nav-links{
         display:none;
         position:absolute;top:100%;right:0;left:0;
@@ -222,7 +223,7 @@
         border-bottom:1px solid var(--border);
         z-index:490;
       }
-      .nav-links.open{display:flex}
+      .nav-links:target{display:flex}
       .nav-links li{width:100%}
       .nav-links a{display:block;width:100%;padding:.9rem 5%;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.04)}
       .nav-links a::after{display:none}
@@ -254,14 +255,15 @@
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  <!-- CSS-only hamburger: clicking opens #navLinks via :target -->
+  <a href="#navLinks" class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </a>
 </nav>
 
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero-inner">
-
-    <!-- LEFT: Content -->
     <div class="hero-content">
       <div class="hero-tag"><span class="dot"></span> Available for Internships &amp; Collabs</div>
       <h1 class="hero-name">
@@ -272,11 +274,9 @@
       <p class="hero-bio">B.Tech student in AI &amp; Data Science at Amrita University &mdash; passionate about building intelligent systems, exploring data, and turning ideas into real-world solutions.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn-primary">View Projects &#x2193;</a>
-        <a href="#contact"  class="btn-outline">Get In Touch &#x2192;</a>
+        <a href="#contact" class="btn-outline">Get In Touch &#x2192;</a>
       </div>
     </div>
-
-    <!-- RIGHT: Photo -->
     <div class="hero-photo">
       <div class="photo-wrap">
         <div class="photo-corner-tr"></div>
@@ -290,7 +290,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -300,7 +299,6 @@
   <h2 class="section-title reveal">Academic Journey</h2>
   <p class="section-sub reveal">The institutions and milestones that shaped my knowledge and passion for technology.</p>
   <div class="edu-timeline">
-
     <div class="edu-item reveal">
       <div class="edu-dot">&#127979;</div>
       <div class="edu-card">
@@ -314,7 +312,6 @@
         </div>
       </div>
     </div>
-
     <div class="edu-item reveal">
       <div class="edu-dot purple">&#128218;</div>
       <div class="edu-card">
@@ -327,7 +324,6 @@
         </div>
       </div>
     </div>
-
     <div class="edu-item reveal">
       <div class="edu-dot pink">&#127979;</div>
       <div class="edu-card">
@@ -340,7 +336,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -393,7 +388,6 @@
   <h2 class="section-title reveal">Things I've Built</h2>
   <p class="section-sub reveal">Real-world projects built with purpose and passion.</p>
   <div class="projects-grid">
-
     <div class="project-card reveal">
       <div class="project-top ptop-blue">
         <div class="project-glow"></div>
@@ -405,13 +399,12 @@
         <div class="project-desc">Developed a smart assistance system in a team of four to help visually impaired individuals detect obstacles while walking. Uses sensors and a microcontroller for real-time alerts through sound or vibration.</div>
         <div class="project-meta">
           <div class="project-period">&#128197; Jan 2025 &ndash; Jun 2025</div>
-          <a href="https://github.com/rohithchowdary77/Smart-Obstacle-Detection-for-Visually-Impaired" target="_blank" class="gh-link">
+          <a href="https://github.com/rohithchowdary77" target="_blank" class="gh-link">
             <svg class="gh-svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           </a>
         </div>
       </div>
     </div>
-
     <div class="project-card reveal">
       <div class="project-top ptop-purple">
         <div class="project-glow-pink"></div>
@@ -429,7 +422,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -439,7 +431,6 @@
   <h2 class="section-title reveal">What I've Earned</h2>
   <p class="section-sub reveal">Credentials that validate my skills across data science, communication, and mathematics.</p>
   <div class="cert-grid">
-
     <div class="cert-card reveal">
       <div class="cert-icon">&#129504;</div>
       <div class="cert-name">Deep Learning in Python</div>
@@ -450,7 +441,6 @@
       </div>
       <div class="cert-badge">Data Science</div>
     </div>
-
     <div class="cert-card reveal">
       <div class="cert-icon">&#128483;</div>
       <div class="cert-name">Communication Skills</div>
@@ -461,7 +451,6 @@
       </div>
       <div class="cert-badge">Soft Skills</div>
     </div>
-
     <div class="cert-card reveal">
       <div class="cert-icon">&#10133;</div>
       <div class="cert-name">Introduction to Linear Algebra with MATLAB</div>
@@ -472,41 +461,35 @@
       </div>
       <div class="cert-badge">Mathematics</div>
     </div>
-
   </div>
 </section>
 
 <!-- ══ CONTACT ══ -->
-<section id="contact" style="background:var(--bg2)">
+<section id="contact">
   <div class="section-label reveal">Contact</div>
   <h2 class="section-title reveal">Let's Connect</h2>
   <p class="section-sub reveal">Whether it's a project, opportunity, or just a hello &mdash; reach out anytime.</p>
   <div class="contact-grid reveal">
-
     <a href="mailto:rohithchowdarynalamati@gmail.com" class="contact-card">
       <div class="contact-icon ci-blue">&#9993;&#65039;</div>
       <div class="contact-label">Email</div>
       <div class="contact-value">rohithchowdarynalamati@gmail.com</div>
     </a>
-
     <a href="tel:+919777782388" class="contact-card">
       <div class="contact-icon ci-green">&#128222;</div>
       <div class="contact-label">Phone</div>
       <div class="contact-value">+91 97777 82388</div>
     </a>
-
     <a href="https://www.linkedin.com/in/nalamati-rohith-chowdary-07636a334" target="_blank" class="contact-card">
       <div class="contact-icon ci-purple">&#128279;</div>
       <div class="contact-label">LinkedIn</div>
       <div class="contact-value">Nalamati Rohith Chowdary</div>
     </a>
-
     <a href="https://www.instagram.com/rohithchowdary_9_" target="_blank" class="contact-card">
       <div class="contact-icon ci-pink">&#128247;</div>
       <div class="contact-label">Instagram</div>
       <div class="contact-value">@rohithchowdary_9_</div>
     </a>
-
     <a href="https://github.com/rohithchowdary77" target="_blank" class="contact-card">
       <div class="contact-icon ci-orange">
         <svg class="gh-svg" style="width:20px;height:20px" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -514,7 +497,6 @@
       <div class="contact-label">GitHub</div>
       <div class="contact-value">rohithchowdary77</div>
     </a>
-
   </div>
 </section>
 
@@ -534,48 +516,5 @@
   </div>
 </footer>
 
-<script>
-  // Hamburger menu
-  var ham=document.getElementById('hamburger'),navEl=document.getElementById('navLinks');
-  ham.addEventListener('click',function(){ham.classList.toggle('open');navEl.classList.toggle('open')});
-
-  // Nav click: scroll with offset + close mobile menu
-  document.querySelectorAll('.nav-links a').forEach(function(a){
-    a.addEventListener('click',function(e){
-      var href=a.getAttribute('href');
-      if(href&&href.startsWith('#')){
-        e.preventDefault();
-        ham.classList.remove('open');
-        navEl.classList.remove('open');
-        var target=document.querySelector(href);
-        if(target){
-          var navH=document.querySelector('nav').offsetHeight;
-          var top=target.getBoundingClientRect().top+window.pageYOffset-navH;
-          window.scrollTo({top:top,behavior:'smooth'});
-        }
-      }
-    });
-  });
-
-  // Scroll reveal
-  var reveals=document.querySelectorAll('.reveal');
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e,i){
-      if(e.isIntersecting){
-        setTimeout(function(){e.target.classList.add('visible')},i*75);
-        io.unobserve(e.target);
-      }
-    });
-  },{threshold:.1});
-  reveals.forEach(function(el){io.observe(el)});
-
-  // Active nav highlight on scroll
-  var secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll',function(){
-    var cur='';
-    secs.forEach(function(s){if(window.scrollY>=s.offsetTop-120) cur=s.id});
-    nls.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});
-  });
-</script>
 </body>
 </html>
